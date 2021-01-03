@@ -1,5 +1,6 @@
 import './App.css';
 import React from 'react';
+import axios from 'axios';
 
 const testData = [
   {name: "Dan Abramov", avatar_url: "https://avatars0.githubusercontent.com/u/810438?v=4", company: "@facebook"},
@@ -10,9 +11,10 @@ const testData = [
 // Form Component 
 class Form extends React.Component {
   state = { userName: "" }
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault(); 
-    console.log(this.state.userName);
+    const resp = await axios.get(`https://api.github.com/users/${this.state.userName}`)
+    this.props.onSubmit(resp.data);
   };
 
   render() {
@@ -54,11 +56,17 @@ class App extends React.Component {
     profiles: testData, 
   };
 
+  addNewProfile = (profileData) => {
+    this.setState(prevState => ({
+      profiles: [...prevState.profiles, profileData]
+    }))
+  }
+
   render() {
     return (
       <React.Fragment>
         <div className="header">{this.props.title}</div>
-        <Form />
+        <Form onSubmit={this.addNewProfile}/>
         <CardList profiles={this.state.profiles}/>
       </React.Fragment>
     );
