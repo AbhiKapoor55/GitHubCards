@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import axios from 'axios';
 
+// Sample test data 
 const testData = [
   {name: "Dan Abramov", avatar_url: "https://avatars0.githubusercontent.com/u/810438?v=4", company: "@facebook"},
   {name: "Sophie Alpert", avatar_url: "https://avatars2.githubusercontent.com/u/6820?v=4", company: "Humu"},
@@ -52,6 +53,7 @@ class Card extends React.Component {
   }
 }
 
+// Top-level App Component 
 class App extends React.Component {
   state = {
     profiles: testData, 
