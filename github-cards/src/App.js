@@ -7,12 +7,23 @@ const testData = [
   {name: "Sebastian Markbåge", avatar_url: "https://avatars2.githubusercontent.com/u/63648?v=4", company: "Facebook"},
 ];
 
-// CardList Component 
+// Form Component 
+class Form extends React.Component {
+  render() {
+    return (
+      <form action="">
+        <input type="text" placeholder="GitHub Username" />
+        <button>Add Card</button>
+      </form>
+    );
+  }
+}
 
+// CardList Component 
 const CardList = (props) => {
   return (
     <div>
-      {testData.map(profile => <Card profile={profile}/>)}
+      {props.profiles.map(profile => <Card profile={profile}/>)}
     </div>
   );
 }
@@ -33,11 +44,16 @@ class Card extends React.Component {
 }
 
 class App extends React.Component {
+  state = {
+    profiles: testData, 
+  };
+
   render() {
     return (
       <React.Fragment>
         <div className="header">{this.props.title}</div>
-        <CardList />
+        <Form />
+        <CardList profiles={this.state.profiles}/>
       </React.Fragment>
     );
   }
