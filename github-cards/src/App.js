@@ -15,6 +15,7 @@ class Form extends React.Component {
     event.preventDefault(); 
     const resp = await axios.get(`https://api.github.com/users/${this.state.userName}`)
     this.props.onSubmit(resp.data);
+    this.setState({userName: ""})
   };
 
   render() {
@@ -31,7 +32,7 @@ class Form extends React.Component {
 const CardList = (props) => {
   return (
     <div>
-      {props.profiles.map(profile => <Card profile={profile}/>)}
+      {props.profiles.map(profile => <Card key={profile.id} profile={profile}/>)}
     </div>
   );
 }
